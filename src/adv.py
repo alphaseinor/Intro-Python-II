@@ -53,3 +53,49 @@ player = Player(input("enter your name > "), room["outside"])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+playing = True
+
+def play():
+
+    print(" ")
+    print("###############")
+    print(f"Location: {player.current_room.name}")
+    print(f"{player.current_room.description}")
+    print("###############")
+    print("[w] north")
+    print("[s] south")
+    print("[a] east")
+    print("[d] west")
+    print("[q] quit.")
+
+    
+
+    def parser(command):
+        global playing #so we can break the loop
+
+        switch_dictionary = {
+            "w": "n",
+            "W": "n",
+            "a": "w",
+            "A": "w",
+            "s": "s",
+            "S": "s",
+            "d": "e",
+            "D": "e",
+            "q": "q",
+            "Q": "q"
+        }
+        command = switch_dictionary.get(command, "xxx")
+
+        if(command == 'q'):
+            playing=False #Breaks the loop
+        elif(command== "xxx"):
+            print("\n+--------------------+\n| invalid key stroke |\n+--------------------+")
+        else:
+            player.move(command)
+    
+    parser(input(f"{player.name}'s command' > "))
+
+while playing:
+    play()
